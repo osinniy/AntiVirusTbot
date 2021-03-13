@@ -31,7 +31,8 @@ suspend fun analyzeUrl(url: String): Pair<AnalyzeResultAttributesStats?, Throwab
                     }
                 } ?: return@withTimeoutOrNull null
 
-//                delay(10.seconds) /* non production ready */
+//                TODO: what should i do with this???
+                delay(10.seconds) /* non production ready */
             }
             throw RuntimeException() /* never thrown */
         }
@@ -56,7 +57,7 @@ private suspend fun <R> Call<VTResponse<R>>.proceed(): R {
     while (true) {
         val response = awaitResponse()
         if (response.isSuccessful) {
-            return response.body()!!.data
+            return response.body()!!.data!!
         } else {
             val error = response.errorBody()!!.asVTError()
             when (error.code) {

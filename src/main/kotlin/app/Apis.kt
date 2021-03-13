@@ -11,7 +11,9 @@ import retrofit2.create
 
 @Suppress("EXPERIMENTAL_API_USAGE")
 object Apis {
-    private val kotlinxSerializationConverterFactory = Json { ignoreUnknownKeys = true }
+    val kotlinxSerialization = Json { ignoreUnknownKeys = true }
+
+    private val kotlinxSerializationConverterFactory = kotlinxSerialization
         .asConverterFactory(MediaType.get("application/json"))
 
     private val vtRetrofit: Retrofit = Retrofit.Builder()
