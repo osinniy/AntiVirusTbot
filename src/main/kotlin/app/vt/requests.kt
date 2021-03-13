@@ -57,7 +57,7 @@ private suspend fun <R> Call<VTResponse<R>>.proceed(): R {
     while (true) {
         val response = awaitResponse()
         if (response.isSuccessful) {
-            return response.body()!!.data
+            return response.body()!!.data!!
         } else {
             val error = response.errorBody()!!.asVTError()
             when (error.code) {

@@ -1,18 +1,20 @@
 package app.vt
 
+import app.Apis
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import okhttp3.ResponseBody
 
-@Serializable data class VTResponse<T>(val data: T)
+@Serializable data class VTResponse<T>(val data: T? = null, val error: VTError? = null)
 
 @Serializable data class VTError(val code: VTErrorCode, val message: String)
 
 class VTException(error: VTError) : RuntimeException(error.message)
 
-fun ResponseBody.asVTError() = Json.decodeFromString<VTError>(string())
+fun ResponseBody.asVTError() =
+    Apis.kotlinxSerialization.decodeFromString<VTResponse<JsonElement>>(string()).error!!
 
 /****** analyzeUrl ******/
 
