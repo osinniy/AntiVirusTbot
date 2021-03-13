@@ -31,7 +31,8 @@ suspend fun analyzeUrl(url: String): Pair<AnalyzeResultAttributesStats?, Throwab
                     }
                 } ?: return@withTimeoutOrNull null
 
-//                delay(10.seconds) /* non production ready */
+//                TODO: what should i do with this???
+                delay(10.seconds) /* non production ready */
             }
             throw RuntimeException() /* never thrown */
         }
